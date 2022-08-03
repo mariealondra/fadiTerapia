@@ -26,9 +26,8 @@ const Decision = ({navigation}) => {
 
             <Text>  </Text>
             
-            
             <Text>  </Text>
-            <TouchableOpacity onPress={ registrar}>
+            <TouchableOpacity onPress={ registrar }>
                 <Image
                     source= {require('../assets/Regist.png')}
                     style= {{width: 250, height: 50}}
@@ -36,7 +35,7 @@ const Decision = ({navigation}) => {
             
             </TouchableOpacity>
             <Text>  </Text>
-            <TouchableOpacity onPress={inicio}>
+            <TouchableOpacity onPress={ inicio }>
                 <Image
                     source= {require('../assets/inicio.png')}
                     style= {{width: 250, height: 50}}

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,35 +5,69 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
- 
+
+// model Student {
+//   id        Int      @id @default(autoincrement())
+//   name      String
+//   birthDate DateTime
+//   career    String
+// }
 
 model Patient {
-  username    String     @id
-  name        String
-  email       String
-  password    String
-  therapist   Therapist  @relation(fields: [therapistId], references: [id])
-  therapistId Int
-  exercises   Exercise[]
+  id                Int                 @id @default(autoincrement())
+  name              String
+  lastname          String
+  email             String              @unique
+  password          String
+  age               Int
+  address           String
+  telephoneNumber   String
+  condition         String
+  therapist         Therapist?          @relation(fields: [therapistId], references: [id])
+  therapistId       Int?
+  exerciseExecution ExerciseExecution[]
 }
+
 model Therapist {
   id       Int       @id @default(autoincrement())
   name     String
-  email    String
+  lastname String?
+  email    String    @unique
+  password String
   patients Patient[]
 }
+
 model Exercise {
-  id          Int       @id @default(autoincrement())
-  name        String
-  description String
-  patients    Patient[]
-  graphs      Graph?
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  description        String
+  exerciseExecutions ExerciseExecution[]
 }
-model Graph {
-  int        Int      @id @default(autoincrement())
-  title      String
-  image      String
+
+model ExerciseExecution {
+  id         Int      @id @default(autoincrement())
+  patient    Patient  @relation(fields: [patientId], references: [id])
+  patientId  Int
+  graph      Graph?
   exercise   Exercise @relation(fields: [exerciseId], references: [id])
-  exerciseId Int      @unique
-  }
+  exerciseId Int
+}
+
+model Graph {
+  id                  Int               @id @default(autoincrement())
+  title               String
+  image               String
+  measures            Measure[]
+  exerciseExecution   ExerciseExecution @relation(fields: [exerciseExecutionId], references: [id])
+  exerciseExecutionId Int               @unique
+}
+
+model Measure {
+  id        Int      @id @default(autoincrement())
+  voltage   Decimal
+  timestamp DateTime
+  graph     Graph    @relation(fields: [graphId], references: [id])
+  graphId   Int
+}

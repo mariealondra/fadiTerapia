@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "fadi_v1",
-    "host": "40.114.9.115",
-    "dialect": "postgres"
+    "username": "root",
+    "password": null,
+    "database": "database_developement",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",

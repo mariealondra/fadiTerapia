@@ -6,7 +6,7 @@ export const Global = StyleSheet.create ({
     container: {
       flex: -1,
       padding: 50,
-      backgroundColor: '#f5f5f5',
+      backgroundColor: '#fff',
       alignItems: 'center'
     }
        

@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "http://localhost:3001/patients/login",
+            "request": "launch",
+            "url": "http://localhost:3001/patients/login"
+        }
+    ]
+}

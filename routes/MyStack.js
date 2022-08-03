@@ -12,6 +12,7 @@ import Bibliografia from '../screens/Bibliografia';
 import Instrucciones from '../screens/Instrucciones';
 import { StyleSheet, View, Text, Button, Image } from 'react-native';
 import Terapeuta from '../screens/Terapeuta';
+import Testing from '../screens/Testing'
 
 
 const Stack = createStackNavigator();
@@ -61,7 +62,7 @@ const MyStack = () => {
 
             <Stack.Screen name = 'Bibliografia' component={Bibliografia} />
 
-            <Stack.Screen name = 'Terapeuta' component={Terapeuta} />
+            <Stack.Screen name = 'Testing' component={Testing} />
 
         </Stack.Navigator>
     )

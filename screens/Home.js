@@ -24,7 +24,7 @@ const Home = ({ navigation}) => {
         navigation.push('Instrucciones');
     };
     const terapeuta= () => {
-        navigation.push('Terapeuta');
+        navigation.push('Testing');
     }
     
     const [isSignedIn, setIsSignedIn]= useState(false);
