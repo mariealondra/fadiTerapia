@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Decision from '../screens/Decision';
+import FADI from '../screens/FADI';
 import Registro from '../screens/Registro';
 import Login from '../screens/Login';
 import Home from '../screens/Home'
@@ -23,7 +23,7 @@ const MyStack = () => {
             
         screenOptions={{
             headerStyle:  {
-                backgroundColor: '#9932cc'
+                backgroundColor: '#9400d3'
             },
             headerTintColor: 'black',
             headerTitleStyle: {
@@ -31,11 +31,10 @@ const MyStack = () => {
             }
             
         }} >
-            <Stack.Screen 
-                name = 'Decision' 
-                component= {Decision}
             
-                
+            <Stack.Screen 
+                name = 'FADI' 
+                component= {FADI}
             />
             
             <Stack.Screen 

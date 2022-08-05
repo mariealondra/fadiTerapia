@@ -1,11 +1,11 @@
 const express = require('express'); //Importar express 
 
-const { get } = require('../rutas/patients.routes');
+const { get } = require('./rutas/patients.routes');
 const app = express(); //Instanciamos express
-const PatientsRouter = require('../rutas/patients.routes');
-const TherapistRouter = require('../rutas/therapist.routes');
-const SensorRouter = require('../rutas/sensor.routes');
-const ExerciseExecutionRouter = require('../rutas/exerciseExecution.routes');
+const PatientsRouter = require('./rutas/patients.routes');
+const TherapistRouter = require('./rutas/therapist.routes');
+const SensorRouter = require('./rutas/sensor.routes');
+const ExerciseExecutionRouter = require('./rutas/exerciseExecution.routes');
 const morgan = require('morgan');
 
 const cors = require('cors'); 

@@ -3,7 +3,7 @@ const router = Router();
 const { getPatients, getPatientById, createPatient, registerPatient, loginPatient, updatePatient, deletePatient } = require('../controllers/patients.controller');
 
 router.get('/patients', getPatients);
-router.get('/patients/:id', getPatientById);
+router.get('/patients/:patientId', getPatientById);
 router.post('/patients', createPatient);
 router.post('/patients/register', registerPatient);
 router.post('/patients/login', loginPatient);

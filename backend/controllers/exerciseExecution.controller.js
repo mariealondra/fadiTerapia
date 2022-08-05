@@ -60,6 +60,22 @@ const addExerciseExecutionMeasure = async (req, res) => {
   }
 };
 
+const getExerciseExecutions = async (req, res) => {
+  try {
+    const { patientId } = req.params;
+    const exerciseExecutions = await prisma.exerciseExecution.findMany({
+      where: { patientId: parseInt(patientId) },
+      include: {
+        exercise: true,
+        graph: true,
+      },
+    });
+    res.json(exerciseExecutions);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Idea: obtener, dado un exerciseExecution, los datos de la gráfica
 //En el frontend, una lista de los ejercicios, cuando clickeas, te lleva a la gráfica
 
@@ -72,9 +88,14 @@ const getExerciseExecutionGraph = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+
+  
+
 };
 module.exports = {
   createExeciseExecution,
   addExerciseExecutionMeasure,
   getExerciseExecutionGraph,
+  getExerciseExecutions,
 };
+

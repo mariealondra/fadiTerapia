@@ -78,132 +78,142 @@ const Registro = ({navigation}) => {
     }
 
   return (
-        <ScrollView>
-            <Image 
-                    source={require('../assets/userEnt.png')} 
-                    style= {{ width: 50, height: 50}}
-                    
-                />
-            <View style = {Global.container}> 
-                <Text style={{ fontWeight: 'bold' }}>Registrarse</Text>
-                <Text> </Text>
-                
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText= {changeName}
-                    value= {userN}
-                    placeholder= 'Digite su nombre'
-                    keyboardType= 'default'
-                    />
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setLastName}
-                    value= {lastname}
-                    keyboardType= 'visible-password'
-                    placeholder= 'Digite apellido'
-                    
-                />
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setEmail}
-                    value= {email}
-                    keyboardType= 'email-address'
-                    placeholder= 'Ingrese su email'
-                    
-                />
-                
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText= {setPassw}
-                    value= {passw}
-                    placeholder= 'Digite su contraseña'
-                    keyboardType= 'default'
-                />
-                
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setConfPassw}
-                    value= {confPassw}
-                    keyboardType= 'visible-password'
-                    placeholder= 'Confirme su contraseña'
-                    
-                />
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setAge}
-                    value= {age}
-                    placeholder= 'Inserte edad'
-                    
-                />
-
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setAddress}
-                    value= {address}
-                    placeholder= 'Ingrese su dirección'
-                    
-                />
-                
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setCondition}
-                    value= {condition}
-                    placeholder= 'Inserte condición'
-                    
-                />
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setTelephoneNumber}
-                    value= {telephoneNumber}
-                    placeholder= 'Digite su teléfono'
-                    
-                />
-                <TextInput
-                    style= {estilo.input}
-                    onChangeText={setTherapistId}
-                    value= {therapistId}
-                    placeholder= 'Digite el id del terapista'
-                    
-                />
+    <View style= {[Global.globalPadding,{flex:1, backgroundColor: 'white'}]}>
+        <View style={{
+        //justifyContent: 'center',
+             alignItems: 'center',
+        }}> 
+        <Image 
+            source={require('../assets/userEnt.png')} 
+            style= {{ width: 50, height: 50}}
             
-                <Text>  </Text>
-                <TouchableOpacity onPress={validateForm}>
-                    <Image
-                        source= {require('../assets/registrarse.png')}
-                        style= {{width: 290, height: 40}}
+        />
+         <Text> </Text>
+        <Text style={{ fontWeight: 'bold' }}>Registrarse</Text>
+        <ScrollView>
+                
+                <View style = {Global.container}> 
+                    
+                    <Text> </Text>
+                    
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText= {changeName}
+                        value= {userN}
+                        placeholder= 'Digite su nombre'
+                        keyboardType= 'default'
+                        />
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setLastName}
+                        value= {lastname}
+                        keyboardType= 'visible-password'
+                        placeholder= 'Digite apellido'
+                        
+                    />
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setEmail}
+                        value= {email}
+                        keyboardType= 'email-address'
+                        placeholder= 'Ingrese su email'
+                        
+                    />
+                    
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText= {setPassw}
+                        value= {passw}
+                        placeholder= 'Digite su contraseña'
+                        keyboardType= 'default'
+                    />
+                    
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setConfPassw}
+                        value= {confPassw}
+                        keyboardType= 'visible-password'
+                        placeholder= 'Confirme su contraseña'
+                        
+                    />
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setAge}
+                        value= {age}
+                        placeholder= 'Inserte edad'
+                        
+                    />
+
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setAddress}
+                        value= {address}
+                        placeholder= 'Ingrese su dirección'
+                        
+                    />
+                    
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setCondition}
+                        value= {condition}
+                        placeholder= 'Inserte condición'
+                        
+                    />
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setTelephoneNumber}
+                        value= {telephoneNumber}
+                        placeholder= 'Digite su teléfono'
+                        
+                    />
+                    <TextInput
+                        style= {estilo.input}
+                        onChangeText={setTherapistId}
+                        value= {therapistId}
+                        placeholder= 'Digite el id del terapista'
+                        
                     />
                 
-                </TouchableOpacity>
-                <Text>  </Text>
-                <TouchableOpacity onPress={homePage}>
-                    <Image
-                        source= {require('../assets/homeB.png')}
-                        style= {{width: 65, height: 65}}
-                    />
-                
-                </TouchableOpacity>
-                {displayFormError == true?
-                    <FormError hideErrOverlay = {setDisplayFormError} err= {errorMessage}/>
-                    : 
-                    null
-                }
-                {isLoading == true?
-                    <FormSuccess onPress= {()=>props.hideErrOverlay(false)}/>
-                    :
-                    successMessage== 'Se ha registrado exitosamente'?
-                        <FormSuccess successMessage={successMessage} close= {setSuccessMessage('')}/>
-                    :
-                    null
-                }
-            </View>
+                    <Text>  </Text>
+                    <TouchableOpacity onPress={validateForm}>
+                        <Image
+                            source= {require('../assets/registrarse.png')}
+                            style= {{width: 290, height: 40}}
+                        />
+                    
+                    </TouchableOpacity>
+                    <Text>  </Text>
+                    <TouchableOpacity onPress={homePage}>
+                        <Image
+                            source= {require('../assets/homeB.png')}
+                            style= {{width: 65, height: 65}}
+                        />
+                    
+                    </TouchableOpacity>
+                    {displayFormError == true?
+                        <FormError hideErrOverlay = {setDisplayFormError} err= {errorMessage}/>
+                        : 
+                        null
+                    }
+                    {isLoading == true?
+                        <FormSuccess onPress= {()=>props.hideErrOverlay(false)}/>
+                        :
+                        successMessage== 'Se ha registrado exitosamente'?
+                            <FormSuccess successMessage={successMessage} close= {setSuccessMessage('')}/>
+                        :
+                        null
+                    }
+                </View>
         </ScrollView>
-    );
-   
+    
+   </View>
+   </View>
+   );
 };
 const estilo = StyleSheet.create({
     input: {
         height: 50,
-        width: 250,
+        width: 270,
         fontSize: 20,
         borderWidth: 1.5,
         borderColor: '#777',

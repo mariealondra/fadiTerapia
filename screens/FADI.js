@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Global } from '../styles/Global';
 ;
 
-const Decision = ({navigation}) => {
+const FADI = ({navigation}) => {
     const inicio = () => {
         navigation.push('Login')
     };
@@ -13,9 +13,14 @@ const Decision = ({navigation}) => {
     };
 
     return (
-        <View style = {Global.container}>
+        <View style= {[Global.globalPadding,{flex:1, backgroundColor: 'white'}]}>
+             <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}> 
+
    
-            <Text style={{ fontWeight: 'bold' }}>Regístrate para unirte a FADI</Text>
+            <Text style={{ fontWeight: 'bold' }}>Regístrate o inicia sesión en FADI</Text>
 
             <Text>  </Text>
             <Image 
@@ -42,10 +47,10 @@ const Decision = ({navigation}) => {
                 />
             
             </TouchableOpacity>
-
+            </View>
         </View>
     );
       
    
 };
-export default Decision;
+export default FADI;

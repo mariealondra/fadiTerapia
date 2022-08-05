@@ -15,9 +15,9 @@ const getPatients = async (req, res) => {
 };
 
 const getPatientById = async (req, res) => {
-  const patientId = parseInt(req.params['id']);
+  const { patientId} = req.params;
   const patient = await prisma.patient.findUnique({ where: { id: parseInt(patientId) } });
-  res.json(patient);
+  return res.json(patient);
 };
 
 const createPatient = async (req, res) => {

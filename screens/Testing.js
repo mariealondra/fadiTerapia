@@ -9,117 +9,104 @@ import {
   PieChart,
   ProgressChart,
   ContributionGraph,
-  StackedBarChart
+  StackedBarChart,
+  xAxes,
+  yAxes
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import clienteAxios from '../config/clienteAxios';
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
-const pushHandler = () => {
-  navigation.push('Home')
-};
 const Testing = ({navigation}) => {
-  const demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
+  const [chartData,setChartData] = useState([]);
+  const dataToRender = [];
+  const lablesToRender = [];
+
+
+ 
   const screenWidth = Dimensions.get("window").width;
-  
+
+  const pushHandler = () => {
+    navigation.push('Home')
+  };
+
+useEffect(() => {
+  const fetchData = async () => {
+    const respuesta = await clienteAxios.get(`/exercise-execution/${1}/graph`);
+    setChartData(await respuesta.data.measures);
+
+  }
+
+ fetchData();
+ 
+},[])
+chartData.map((voltage) => {
+
+  dataToRender.push(parseFloat(voltage.voltage))
+})
+chartData.map((timestamp) => {
+  lablesToRender.push(timestamp.timestamp)
+})
+// console.log("funka");
+// console.log(lablesToRender);
+// console.log(dataToRender);
   return (
 
-    <View style = {Global.chartstyle}>
-    <Text>Bezier Line Chart</Text>
-    <LineChart
-      data={{
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-          {
-            data: [
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100,
-              Math.random() * 100
+    <View style = {estilo.container}>
+      <ScrollView>
+        <Text>Gráfica del ejercio</Text>
+        <LineChart
+          data={{
+            labels: lablesToRender === undefined ? []:lablesToRender,//["January", "February", "March", "April", "May", "June"],
+            datasets:   [
+              {
+                  data: dataToRender === undefined ? [] : dataToRender
+                // data: [
+                //   Math.random() * 100,
+                //   Math.random() * 100,
+                //   Math.random() * 100,
+                //   Math.random() * 100,
+                //   Math.random() * 100,
+                //   Math.random() * 100
+                // ]
+              }
             ]
-          }
-        ]
-      }}
-      width={Dimensions.get("window").width} // from react-native
-      height={220}
-      yAxisLabel="$"
-      yAxisSuffix="k"
-      yAxisInterval={1} // optional, defaults to 1
-      chartConfig={{
-        backgroundColor: "#e26a00",
-        backgroundGradientFrom: "#fb8c00",
-        backgroundGradientTo: "#ffa726",
-        decimalPlaces: 2, // optional, defaults to 2dp
-        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-        style: {
-          borderRadius: 16
-        },
-        propsForDots: {
-          r: "6",
-          strokeWidth: "2",
-          stroke: "#ffa726"
-        }
-      }}
-      bezier
-      style={{
-        marginVertical: 8,
-        borderRadius: 16
-      }}
+          }}
+          width={Dimensions.get("window").width} // from react-native
+          height={220}
+          yAxisLabel="S"
+          yAxisSuffix="V"
+          yAxisInterval={20} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#8a2be2",
+            backgroundGradientFrom: "#fff",
+            backgroundGradientTo: "#fff",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(1, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 50, 52, ${opacity})`,
+            style: {
+              borderRadius: 20
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#8a2be2"
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16
+          }}
 
-  />
-
-    <TouchableOpacity onPress={pushHandler}>
-      <Image
-          source= {require('../assets/homeB.png')}
-          style= {{width: 50, height: 50}}
       />
-    </TouchableOpacity>
+        <TouchableOpacity onPress={pushHandler}>
+          <Image
+              source= {require('../assets/homeB.png')}
+              style= {{width: 50, height: 50}}
+          />
+        </TouchableOpacity>
+      </ScrollView>
 </View>
     
   )
@@ -128,15 +115,26 @@ const Testing = ({navigation}) => {
 
 const chartConfig = StyleSheet.create({
   chartstyle: {
-    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFrom: "#8a2be2",
     backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
+    backgroundGradientTo: "#8a2be2",
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    color: (opacity = 1) => `rgba(1, 52, 52, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
-    useShadowColorFromDataset: false // optional
+    useShadowColorFromDataset: false, 
+    paddingLeft: 15
   }
+});
+
+const estilo = StyleSheet.create({
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignContent: 'center',
+      marginLeft: 10,
+      marginRight: 10
+  },
 });
 
 export default Testing;
