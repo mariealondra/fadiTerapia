@@ -1,5 +1,5 @@
+const prisma = require("../../config/prisma.client");
 
-const prisma = require('../config/prisma.client');
 const getExercise = async (req, res) => {
   const exercises = await prisma.exercise.findMany({
     include: {
@@ -10,8 +10,10 @@ const getExercise = async (req, res) => {
   res.json(exercises);
 };
 const getExerciseById = async (req, res) => {
-  const exerciseId = parseInt(req.params['id']);
-  const exercise = await prisma.exercise.findUnique({ where: { id: exerciseId } });
+  const exerciseId = parseInt(req.params["id"]);
+  const exercise = await prisma.exercise.findUnique({
+    where: { id: exerciseId },
+  });
   res.json(exercise);
 };
 const createExercise = async (req, res) => {
@@ -31,7 +33,7 @@ const createExercise = async (req, res) => {
   res.json(createdExercise);
 };
 const updateExercise = async (req, res) => {
-  const exerciseId = parseInt(req.params['id']);
+  const exerciseId = parseInt(req.params["id"]);
   const { name } = req.body;
   const updatedExercise = await prisma.exercise.update({
     where: {
@@ -39,13 +41,13 @@ const updateExercise = async (req, res) => {
     },
     data: {
       name,
-      description
+      description,
     },
   });
   res.json(updatedExercise);
 };
 const deleteExercise = async (req, res) => {
-  const exerciseId = parseInt(req.params['id']);
+  const exerciseId = parseInt(req.params["id"]);
   const deletedExercise = await prisma.Exercise.delete({
     where: {
       id: ExerciseId,

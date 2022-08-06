@@ -1,19 +1,23 @@
-const prisma = require('../config/prisma.client');
-const  getSensorValues  = require('./sensor.controller');
+const prisma = require("../../config/prisma.client");
 
+const getSensorValues = require("./sensor.controller");
 
 const createExeciseExecution = async (req, res) => {
   try {
     const { patientEmail, exerciseId } = req.body;
 
-    const patient = await prisma.patient.findFirst({ where: { email: patientEmail } });
+    const patient = await prisma.patient.findFirst({
+      where: { email: patientEmail },
+    });
     const patientId = patient.id;
 
     if (!patient || !exerciseId) {
-      res.json({ message: 'ERROR: paciente o ejercicio no enviado' });
+      res.json({ message: "ERROR: paciente o ejercicio no enviado" });
       return;
     }
-    const exercise = await prisma.exercise.findUnique({ where: { id: parseInt(exerciseId) } });
+    const exercise = await prisma.exercise.findUnique({
+      where: { id: parseInt(exerciseId) },
+    });
     const createdExerciseExecution = await prisma.exerciseExecution.create({
       data: {
         patient: {
@@ -27,7 +31,7 @@ const createExeciseExecution = async (req, res) => {
     const createdGraph = await prisma.graph.create({
       data: {
         title: exercise.name,
-        image: 'NA',
+        image: "NA",
         exerciseExecution: {
           connect: { id: createdExerciseExecution.id },
         },
@@ -43,7 +47,7 @@ const addExerciseExecutionMeasure = async (req, res) => {
   try {
     const signal = req.body;
     const parsedSignal = parseFloat(Object.keys(signal)[0]);
-    const graphs = await prisma.graph.findMany({ orderBy: { id: 'desc' } });
+    const graphs = await prisma.graph.findMany({ orderBy: { id: "desc" } });
     const graph = graphs[0];
     const measure = await prisma.measure.create({
       data: {
@@ -83,14 +87,14 @@ const getExerciseExecutionGraph = async (req, res) => {
   try {
     const { exerciseExecutionId } = req.params;
 
-    const graph = await prisma.graph.findFirst({ where: { exerciseExecutionId: parseInt(exerciseExecutionId) }, include: { measures: true } });
+    const graph = await prisma.graph.findFirst({
+      where: { exerciseExecutionId: parseInt(exerciseExecutionId) },
+      include: { measures: true },
+    });
     res.json(graph);
   } catch (error) {
     console.log(error);
   }
-
-  
-
 };
 module.exports = {
   createExeciseExecution,
@@ -98,4 +102,3 @@ module.exports = {
   getExerciseExecutionGraph,
   getExerciseExecutions,
 };
-
