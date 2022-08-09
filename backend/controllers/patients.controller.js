@@ -20,6 +20,10 @@ const getPatientById = async (req, res) => {
   });
   return res.json(patient);
 };
+const getPatientId = async (req, res) => {
+  const patientId = parseInt(req.params["id"]);
+  return patientId;
+};
 
 const createPatient = async (req, res) => {
   const { name, email, password, therapistId } = req.body;
@@ -110,10 +114,17 @@ const registerPatient = async (req, res) => {
 const loginPatient = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const patient = await prisma.patient.findUnique({ where: { email } });
+    const patientId = parseInt(req.params["id"]);
+    console.log(patientId);
+
+    const patient = await prisma.patient.findUnique(
+      { where: { email } },
+      { where: { id: patientId } }
+    );
     if (!patient)
       res.json({ error: "There isn't any patient with that email!" });
     const validPassword = await bcrypt.compare(password, patient.password);
+    //const validPatientId = await bcrypt.compare(patientId, patient.patientId);
     if (!validPassword) res.json({ error: "This is an invalid password!" });
     const token = jwt.sign(
       {
@@ -123,9 +134,7 @@ const loginPatient = async (req, res) => {
       process.env.TOKEN_SECRET,
       { expiresIn: "8h" }
     );
-    res.json({
-      data: { token },
-    });
+    return res.json(token);
   } catch (error) {
     console.log(error);
   }
@@ -134,6 +143,7 @@ const loginPatient = async (req, res) => {
 module.exports = {
   getPatients,
   getPatientById,
+  getPatientId,
   createPatient,
   updatePatient,
   deletePatient,

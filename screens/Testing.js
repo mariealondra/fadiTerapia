@@ -25,8 +25,12 @@ import {
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import clienteAxios from "../config/clienteAxios";
+import { label } from "./Login";
+import { useNavigation } from "@react-navigation/native";
 
-const Testing = ({ navigation }) => {
+const Testing = (props, { navigation }) => {
+  const navigator = useNavigation();
+  const { id } = props.route.params;
   const [chartData, setChartData] = useState([]);
   const dataToRender = [];
   const lablesToRender = [];
@@ -34,17 +38,32 @@ const Testing = ({ navigation }) => {
   const screenWidth = Dimensions.get("window").width;
 
   const pushHandler = () => {
-    navigation.push("Home");
+    navigator.navigate("Home");
   };
+  // const handleData = async () => {
+  //   try {
+  //     const patId = await clienteAxios.get("/patients/:patientId");
+  //     //const patientId = await AsyncStorage.getItem("patientId");
+  //     const parsedPatientId = parseFloat(patId);
+  //     console.log(patId);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const respuesta = await clienteAxios.get(
-        `/exercise-execution/${3}/graph`
-      );
-      setChartData(await respuesta.data.measures);
-    };
+    //console.log(patId);
 
+    const fetchData = async () => {
+      //const Id = formData.patientId;
+      const respuesta = await clienteAxios.get(
+        `/exercise-execution/${id}/graph`
+      );
+      ///exercise-execution/:patientId/exerciseExecution
+      setChartData(await respuesta.data.measures);
+      console.log(respuesta.data.measures);
+    };
+    //getPatientId();
     fetchData();
   }, []);
 
@@ -61,7 +80,7 @@ const Testing = ({ navigation }) => {
     <View style={estilo.container}>
       <ScrollView>
         <Text>Gráfica del ejercio</Text>
-        <ScrollView horizontal>
+        <ScrollView horizontal={true}>
           <LineChart
             data={{
               labels:
@@ -77,16 +96,19 @@ const Testing = ({ navigation }) => {
                           Math.random() * 100,
                           Math.random() * 100,
                           Math.random() * 100,
+                          Math.random() * 100,
                         ]
                       : dataToRender,
                 },
               ],
             }}
-            width={screenWidth}
+            width={screenWidth + 4000}
             height={220}
             yAxisLabel="S"
             yAxisSuffix="V"
-            yAxisInterval={20} // optional, defaults to 1
+            yAxisInterval={2}
+            yLabelsOffset={18}
+            xLabelsOffset={7} // optional, defaults to 1
             chartConfig={{
               backgroundColor: "#8a2be2",
               backgroundGradientFrom: "#fff",
@@ -98,7 +120,7 @@ const Testing = ({ navigation }) => {
                 borderRadius: 20,
               },
               propsForDots: {
-                r: "6",
+                r: "1",
                 strokeWidth: "2",
                 stroke: "#8a2be2",
               },
@@ -110,7 +132,7 @@ const Testing = ({ navigation }) => {
             }}
           />
         </ScrollView>
-        <TouchableOpacity onPress={pushHandler}>
+        <TouchableOpacity>
           <Image
             source={require("../assets/homeB.png")}
             style={{ width: 50, height: 50 }}
